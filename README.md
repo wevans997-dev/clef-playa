@@ -75,17 +75,37 @@ uv run clef-playa compare out/brc2026-256 out/brc2026-256-off
 
 ## Results: BRC 2026
 
-Imagery: 40k x 40k px (35% of the original), nadir, aligned to the city's 12:00-6:00 axis. 0.433 ft/px from the GIS fit, verified against the street grid and the full trash-fence pentagon.
+Imagery: 40k x 40k px (35% of the original), nadir, aligned to the city's 12:00-6:00 axis. 0.433 ft/px from the GIS fit, verified against the street grid and the full trash-fence pentagon. Region covers the city, Gate, Walk-in camping, and the airport.
 
-512 px tiles, two grids offset by half a tile (2,299 and 2,271 tiles, $1.38 each):
+| | 512 px, grid A | 512 px, grid B | **256 px** |
+|---|---|---|---|
+| tiles judged | 2,299 | 2,271 | 8,785 |
+| expected RVs | 9,521 | 9,479 | **14,385** |
+| expected cars | 10,660 | 10,654 | **18,084** |
+| shade | 261.6 acres | 260.6 acres | **256.8 acres** |
+| cost | $1.38 | $1.37 | $5.29 |
 
-| | grid A | grid B |
-|---|---|---|
-| expected RVs | 9,521 | 9,479 |
-| expected cars | 10,660 | 10,654 |
-| shade | 261.6 acres | 260.6 acres |
+The 256 px run is the one to quote. The two 512 px grids agree with each other to 0.2% but both undercount dense tiles (see Validation); the 256 px totals land where the quadrant experiment predicted (1.5-1.7x on counts, shade unchanged).
 
-256 px tiles (production): _pending_.
+By street ring, 256 px run (shade % is the share of judged tile area under a roof):
+
+| ring | RVs | cars | shade acres | shade % |
+|---|---|---|---|---|
+| ESP-A | 1,215 | 1,526 | 21.9 | 16.4 |
+| A-B | 823 | 1,146 | 16.1 | 16.8 |
+| B-C | 893 | 1,153 | 17.2 | 15.4 |
+| C-D | 1,002 | 1,307 | 18.9 | 14.8 |
+| D-E | 1,231 | 1,515 | 22.3 | 15.5 |
+| E-F (double block) | 2,168 | 2,581 | 37.6 | 14.8 |
+| F-G | 1,373 | 1,581 | 20.6 | 13.5 |
+| G-H | 1,403 | 1,515 | 17.7 | 11.4 |
+| H-I | 1,412 | 1,550 | 17.3 | 10.7 |
+| I-J | 870 | 986 | 10.0 | 9.5 |
+| J-K | 869 | 1,058 | 11.0 | 9.8 |
+| beyond K | 994 | 1,649 | 41.2 | 5.7 |
+| inner playa | 131 | 518 | 5.0 | 2.5 |
+
+Shade density falls steadily from the Esplanade (~16%) to K (~10%). RV density per tile is fairly even across rings but not around the clock: the 2:00-3:00 and 9:00-10:00 wings run about 2.5 RVs per tile against 1.4 at 4:30-5:30. Full tables are written by `sectors` as `by_ring.csv`, `by_clock.csv`, and `tiles_sectors.csv`.
 
 Known biases: vehicles under carports or shade are invisible from above, so vehicle counts are a floor. Coverage buckets make shade an estimate, not a measurement.
 
