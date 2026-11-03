@@ -1,0 +1,25 @@
+[project]
+name = "clef-playa"
+version = "0.1.0"
+description = "Tile a Black Rock City aerial and ask Cloudflare's Clef decision model what is in each tile"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27",
+    "pillow>=10.0",
+]
+
+[project.scripts]
+clef-playa = "clef_playa.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["clef_playa"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"

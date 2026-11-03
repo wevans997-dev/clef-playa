@@ -1,0 +1,18 @@
+# python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.ruff_cache/
+
+# local state and secrets
+.env
+.cloudflare/
+
+# large or licensed inputs and outputs
+out/
+scratch/
+gis/
+*.jpg
+*.png
+.DS_Store
